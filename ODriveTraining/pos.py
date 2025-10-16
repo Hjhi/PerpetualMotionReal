@@ -14,9 +14,10 @@ ax.set_vel_limit(5)
 ax.set_pos(5)
 ax.wait_for_motor_to_stop()
 print("Current Position in Turns = ", round(ax.get_pos(), 2))
-ax.set_relative_pos(-10)
+ax.set_relative_pos(-5)
 ax.wait_for_motor_to_stop()
 print("Current Position in Turns = ", round(ax.get_pos(), 2))
 sleep(3)
+
 
 ax.idle()
