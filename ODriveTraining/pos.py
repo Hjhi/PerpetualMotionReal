@@ -1,7 +1,7 @@
 from dpea_odrive.odrive_helpers import *
 from time import sleep
 
-od = find_odrive()
+od = find_odrive(serial_number="207935A1524B")
 assert od.config.enable_brake_resistor is True, "Check for faulty brake resistor."
 
 ax = ODriveAxis(od.axis0)
