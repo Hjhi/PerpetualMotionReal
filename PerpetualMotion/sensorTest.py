@@ -1,6 +1,7 @@
 from dpeaDPi.DPiComputer import DPiComputer
 from time import sleep
 
+
 dpiComputer = DPiComputer()
 
 def main():

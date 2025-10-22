@@ -3,6 +3,9 @@ import os
 from dpeaDPi.DPiComputer import DPiComputer
 from dpeaDPi.DPiStepper import DPiStepper
 
+from PerpetualMotion.MainScreen import MainScreen
+from PerpetualMotion.PerpetualMachine import PerpetualMachine
+
 os.environ['DISPLAY'] = ":0.0"
 import sys
 sys.path.insert(0, '.venv/src/pidev')
@@ -16,17 +19,6 @@ from pidev.kivy.PauseScreen import PauseScreen
 from pidev.kivy.AdminScreen import AdminScreen
 from pidev.kivy.DPEAButton import DPEAButton
 
-dpiComputer = DPiComputer()
-dpiStepper = DPiStepper()
-if dpiStepper.initialize() != True:
-    print("Communication with the DPiStepper board failed.")
-
-proxSensorBottom = dpiComputer.IN_CONNECTOR__IN_1
-proxSensorTop = dpiComputer.IN_CONNECTOR__IN_0
-
-gateServo = 0
-stairServo = 1
-
 class ProjectNameGUI(App):
     """
     Class to handle running the GUI Application
@@ -37,9 +29,10 @@ class ProjectNameGUI(App):
         Build the application
         :return: Kivy Screen Manager instance
         """
+        self.machine = PerpetualMachine()
         Builder.load_file('main.kv')
         sm = ScreenManager()
-        sm.add_widget(MainScreen(name='main'))
+        sm.add_widget(MainScreen(self.machine, name='main'))
         sm.add_widget(PassCodeScreen(name='passCode'))
         sm.add_widget(PauseScreen(name='pauseScene'))
         sm.add_widget(AdminScreen(name='admin'))
@@ -49,32 +42,11 @@ class ProjectNameGUI(App):
 Window.clearcolor = (1, 1, 1, 1)  # White
 
 
-class MainScreen(Screen):
-    """
-    Class to handle the main screen and its associated touch events
-    """
-
-
-    def pressed(self):
-        """
-        Function called on button touch event for button with id: testButton
-        :return: None
-        """
-        print("Callback from MainScreen.pressed()")
-
-    def admin_action(self):
-        """
-        Hidden admin button touch event. Transitions to passCodeScreen.
-        This method is called from pidev/kivy/PassCodeScreen.kv
-        :return: None
-        """
-        self.manager.current = 'passCode'
-
-
 
 if __name__ == "__main__":
     # Makes the window auto full screen
     Config.set('graphics', 'fullscreen', 'auto')
     Config.set('graphics', 'window_state', 'maximized')
     Config.write()
+
     ProjectNameGUI().run()

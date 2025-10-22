@@ -3,35 +3,20 @@
         size_hint: None, None
 
     DPEAButton:
-        id: test_button_1
-        text: "Hello"
-        size: 200, 200
-        x: root.width * 0.4
-        y: root.height * 0.5
-        text_color: 1, 1, 1, 1
-        fill_color: 1, 0, 0, 1
-        border_radius: root.height/2
-        fill_radius: root.height/2
-        font_size: 30
-        on_press: root.pressed()
+        id: auto_manual_toggle
+        text: "Toggle Manual"
+        size_hint: (0.2, 0.1)
+        pos_hint: {"x": 0.5, "y": 0.7}
+        text_color: "black"
+        fill_color: root.bluish_grey
+        font_size: 21
+        halign: 'center'
+
 
     DPEAButton:
-        id: test_button_2
-        text: 'World'
-        size: 100, 200
-        x: root.width * 0.6
-        y: root.height * 0.5
-        text_color: 1, 1, 1, 1
-        fill_color: 0, 0, 1, 1
-        font_size: 20
-        bold: True
-        on_press: root.pressed()
-
-    DPEAButton:
-        id: test_button_3
-        size: ((test_button_2.x + test_button_2.width) - test_button_1.x) + 150, 100
-        fill_color: 1, 1, 0, 1
-        border_radius: 50
-        fill_radius: 50
-        center_x: test_button_2.x + (test_button_1.x - test_button_2.x)/2 + 75
-        y: root.height * 0.25
+        id: auto_start_stop
+        text: "Start"
+        size_hint: (0.1, 0.1 if root.auto_toggle else 0)
+        pos_hint: {"x": 0.5, "y": 0.5}
+        text_color: "black"
+        fill_color: root.green
