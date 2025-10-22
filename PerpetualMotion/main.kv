@@ -11,6 +11,7 @@
         fill_color: root.bluish_grey
         font_size: 21
         halign: 'center'
+        on_press: root.toggle_auto_manual
 
 
     DPEAButton:
@@ -20,3 +21,46 @@
         pos_hint: {"x": 0.5, "y": 0.5}
         text_color: "black"
         fill_color: root.green
+
+    Label:
+        id: ramp_speed_label
+        color: "black"
+        pos_hint: {"left": 0.95, "y": 0.05}
+        halign: "left"
+        text: "Set Ramp Speed: 0"
+        font_size: 21
+        text_size: root.size
+        size_hint: (0.2, 0. 0.1)
+
+
+    Slider:
+        id: ramp_speed_slider
+        min: 0
+        max: 100
+        step: 1
+        size_hint: (0.7, 0.1)
+        pos_hint: {"right": 1, "y": 0.05}
+        halign: "right"
+
+    Label:
+        id: stair_speed_label
+        color: "black"
+        pos_hint: {"left": 0.95, "y": 0.1}
+        halign: "left"
+        text: "Set Stair Speed: 0"
+        font_size: 21
+        text_size: root.size
+        size_hint: (0.2, 0. 0.1)
+
+    Slider:
+        id: stair_speed_slider
+        min: 0
+        max: 100
+        step: 1
+        size_hint: (0.7, 0.05)
+        pos_hint: {"right": 1, "y": 0.05}
+        halign: "right"
+
+<Slider>
+    value_track: True
+    value_track_color: root.green

@@ -3,6 +3,8 @@ from kivy.uix.screenmanager import Screen
 
 from PerpetualMachine import PerpetualMachine
 
+from pidev.kivy.DPEAButton import DPEAButton
+
 
 class MainScreen(Screen):
     """
@@ -33,6 +35,9 @@ class MainScreen(Screen):
 
     def step(self):
         self.stateMachine()
+
+    def toggle_auto_manual(self):
+        self.auto_toggle = not self.auto_toggle
 
     def pressed(self):
         """
