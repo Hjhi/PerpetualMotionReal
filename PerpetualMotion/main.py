@@ -32,6 +32,7 @@ class ProjectNameGUI(App):
         self.machine = PerpetualMachine()
         Builder.load_file('main.kv')
         sm = ScreenManager()
+        print("hi")
         sm.add_widget(MainScreen(self.machine, name='main'))
         sm.add_widget(PassCodeScreen(name='passCode'))
         sm.add_widget(PauseScreen(name='pauseScene'))
@@ -48,5 +49,4 @@ if __name__ == "__main__":
     Config.set('graphics', 'fullscreen', 'auto')
     Config.set('graphics', 'window_state', 'maximized')
     Config.write()
-
     ProjectNameGUI().run()
