@@ -28,10 +28,10 @@ class MainScreen(Screen):
         super(MainScreen, self).__init__(**kwargs)
         self.machine: PerpetualMachine = machine
 
-    def on_enter(self, *args):
-        print("woah!")
-        Clock.schedule_interval(self.update, 1.0 / 60.0)
-
+    # def on_enter(self, *args):
+    #     print("woah!")
+    #     Clock.schedule_interval(self.update, 1.0 / 60.0)
+    #
     def stateMachine(self):
         pass
 
