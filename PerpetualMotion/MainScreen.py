@@ -5,6 +5,7 @@ from kivy.uix.screenmanager import Screen
 from PerpetualMachine import PerpetualMachine
 
 from pidev.kivy.DPEAButton import DPEAButton
+from time import sleep
 
 
 class MainScreen(Screen):
@@ -28,10 +29,11 @@ class MainScreen(Screen):
         super(MainScreen, self).__init__(**kwargs)
         self.machine: PerpetualMachine = machine
 
-    # def on_enter(self, *args):
-    #     print("woah!")
-    #     Clock.schedule_interval(self.update, 1.0 / 60.0)
-    #
+    def on_enter(self, *args):
+        sleep(1)
+        print("woah!")
+        Clock.schedule_interval(self.update, 1.0 / 60.0)
+
     def stateMachine(self):
         pass
 
