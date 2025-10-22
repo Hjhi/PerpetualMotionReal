@@ -1,7 +1,7 @@
 from kivy.properties import ColorProperty
 from kivy.uix.screenmanager import Screen
 
-from PerpetualMotion.PerpetualMachine import PerpetualMachine
+from PerpetualMachine import PerpetualMachine
 
 
 class MainScreen(Screen):
