@@ -15,7 +15,7 @@ class PerpetualMachine:
     def __init__(self, **kwargs):
         self.dpiComputer = DPiComputer()
         self.dpiStepper = DPiStepper()
-        if not self.dpiStepper.initalize():
+        if not self.dpiStepper.initialize():
             print("Failed to initialize the DPiStepper board")
 
         self.prox_sensor_top = self.dpiComputer.IN_CONNECTOR__IN_0
