@@ -1,4 +1,8 @@
 import os
+
+from dpeaDPi.DPiComputer import DPiComputer
+from dpeaDPi.DPiStepper import DPiStepper
+
 os.environ['DISPLAY'] = ":0.0"
 import sys
 sys.path.insert(0, '.venv/src/pidev')
@@ -11,6 +15,17 @@ from pidev.kivy.PassCodeScreen import PassCodeScreen
 from pidev.kivy.PauseScreen import PauseScreen
 from pidev.kivy.AdminScreen import AdminScreen
 from pidev.kivy.DPEAButton import DPEAButton
+
+dpiComputer = DPiComputer()
+dpiStepper = DPiStepper()
+if dpiStepper.initialize() != True:
+    print("Communication with the DPiStepper board failed.")
+
+proxSensorBottom = dpiComputer.IN_CONNECTOR__IN_1
+proxSensorTop = dpiComputer.IN_CONNECTOR__IN_0
+
+gateServo = 0
+stairServo = 1
 
 class ProjectNameGUI(App):
     """
@@ -38,6 +53,7 @@ class MainScreen(Screen):
     """
     Class to handle the main screen and its associated touch events
     """
+
 
     def pressed(self):
         """
