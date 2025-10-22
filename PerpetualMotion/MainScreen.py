@@ -49,6 +49,7 @@ class MainScreen(Screen):
         self.auto_toggle = not self.auto_toggle
         if self.auto_toggle:
             # Do auto stuff, statemachine stuff
+            self.ids.auto_start_stop.size_hint = (0.1, 0.1)
             pass
         else:
             # Do manual stuff, button stuff

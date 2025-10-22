@@ -6,7 +6,7 @@
         id: auto_manual_toggle
         text: "Toggle Manual"
         size_hint: (0.2, 0.1)
-        pos_hint: {"x": 0.5, "y": 0.7}
+        pos_hint: {"x": 0.5-0.1, "y": 0.7-0.05}
         text_color: "black"
         fill_color: root.bluish_grey
         font_size: 21
@@ -18,7 +18,7 @@
         id: auto_start_stop
         text: "Start"
         size_hint: (0.1, 0.1 if root.auto_toggle else 0)
-        pos_hint: {"x": 0.5, "y": 0.5}
+        pos_hint: {"x": 0.5-0.05, "y": 0.5-0.05}
         text_color: "black"
         fill_color: root.green
 
