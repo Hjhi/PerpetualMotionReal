@@ -32,7 +32,7 @@ class MainScreen(Screen):
     def on_enter(self, *args):
         sleep(1)
         print("woah!")
-        Clock.schedule_interval(self.update, 0.05)
+        # Clock.schedule_interval(self.update, 0.05)
 
     def stateMachine(self):
         pass
