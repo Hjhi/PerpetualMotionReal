@@ -3,8 +3,8 @@ import os
 from dpeaDPi.DPiComputer import DPiComputer
 from dpeaDPi.DPiStepper import DPiStepper
 
-from PerpetualMotion.MainScreen import MainScreen
-from PerpetualMotion.PerpetualMachine import PerpetualMachine
+from MainScreen import MainScreen
+from PerpetualMachine import PerpetualMachine
 
 os.environ['DISPLAY'] = ":0.0"
 import sys
