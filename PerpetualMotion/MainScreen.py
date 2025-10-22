@@ -28,6 +28,7 @@ class MainScreen(Screen):
     def __init__(self, machine: PerpetualMachine, **kwargs):
         super(MainScreen, self).__init__(**kwargs)
         self.machine: PerpetualMachine = machine
+        self.manager.currnt = 'main'
 
     # def on_enter(self, *args):
     #     sleep(1)
@@ -53,13 +54,6 @@ class MainScreen(Screen):
         else:
             # Do manual stuff, button stuff
             pass
-
-    def pressed(self):
-        """
-        Function called on button touch event for button with id: testButton
-        :return: None
-        """
-        print("Callback from MainScreen.pressed()")
 
     def admin_action(self):
         """
