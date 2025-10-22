@@ -33,7 +33,6 @@ class ProjectNameGUI(App):
         self.machine = PerpetualMachine()
         Builder.load_file('main.kv')
         sm = ScreenManager()
-        print("hi")
         sm.add_widget(MainScreen(self.machine, name='main'))
         sm.add_widget(PassCodeScreen(name='passCode'))
         sm.add_widget(PauseScreen(name='pauseScene'))
