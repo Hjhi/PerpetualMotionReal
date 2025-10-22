@@ -21,7 +21,7 @@ class MainScreen(Screen):
 
     auto_toggle: bool = True
 
-    def __init__(self, machine: PerpetualMachine):
+    def __init__(self, machine: PerpetualMachine, **kwargs):
         self.machine: PerpetualMachine = machine
 
     def stateMachine(self):
