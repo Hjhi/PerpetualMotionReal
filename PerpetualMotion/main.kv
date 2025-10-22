@@ -31,6 +31,7 @@
         font_size: 21
         text_size: root.size
         size_hint: (0.2, 0.1)
+        valign: "bottom"
 
 
     Slider:
@@ -45,8 +46,9 @@
     Label:
         id: stair_speed_label
         color: "black"
-        pos_hint: {"left": 0.95, "y": 0.1}
+        pos_hint: {"left": 0.95, "y": 0.025}
         halign: "left"
+        valign: "bottom"
         text: "Set Stair Speed: 0"
         font_size: 21
         text_size: root.size
@@ -58,7 +60,7 @@
         max: 100
         step: 1
         size_hint: (0.7, 0.05)
-        pos_hint: {"right": 1, "y": 0.05}
+        pos_hint: {"right": 1, "y": 0.025}
         halign: "right"
 
 <Slider>

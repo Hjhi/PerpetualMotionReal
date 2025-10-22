@@ -31,8 +31,6 @@ class MainScreen(Screen):
         self.machine: PerpetualMachine = machine
 
     def on_enter(self, *args):
-        sleep(1)
-        print("woah!")
         Clock.schedule_interval(self.update, 0.05)
 
     def stateMachine(self):
@@ -42,6 +40,7 @@ class MainScreen(Screen):
         pass
 
     def update(self, dt=None):
+        print("update called")
         self.stateMachine()
         self.ids.stair_speed_label.text = f"Stair Speed {self.ids.stair_speed_slider.value}"
         self.ids.ramp_speed_label.text = f"Ramp Speed {self.ids.ramp_speed_slider.value}"
