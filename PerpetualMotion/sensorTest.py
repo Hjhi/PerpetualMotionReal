@@ -10,8 +10,8 @@ def main():
     proxSensorBottom: int = dpiComputer.IN_CONNECTOR__IN_1
 
     while True:
-        _, sense_value_top = dpiComputer.readDigitalIn(proxSensorTop)
-        _, sense_value_bottom = dpiComputer.readDigitalIn(proxSensorBottom)
+        sense_value_top = dpiComputer.readDigitalIn(proxSensorTop)
+        sense_value_bottom = dpiComputer.readDigitalIn(proxSensorBottom)
 
         if sense_value_top:
             print("Top Input is high")
