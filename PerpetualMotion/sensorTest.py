@@ -4,9 +4,7 @@ from time import sleep
 dpiComputer = DPiComputer()
 
 def main():
-    if dpiComputer.initialize() != True:
-        print("Communication with the DPiDigitalIn board failed.")
-        return
+    dpiComputer.initialize()
 
     proxSensorTop: int = dpiComputer.IN_CONNECTOR__IN_0
     proxSensorBottom: int = dpiComputer.IN_CONNECTOR__IN_1
