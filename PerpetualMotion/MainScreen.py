@@ -25,15 +25,15 @@ class MainScreen(Screen):
 
     auto_toggle: bool = True
 
-    # def __init__(self, machine: PerpetualMachine, **kwargs):
-    #     super(MainScreen, self).__init__(**kwargs)
-    #     sleep(1)
-    #     self.machine: PerpetualMachine = machine
+    def __init__(self, machine: PerpetualMachine, **kwargs):
+        super(MainScreen, self).__init__(**kwargs)
+        sleep(1)
+        self.machine: PerpetualMachine = machine
 
-    # def on_enter(self, *args):
-    #     sleep(1)
-    #     print("woah!")
-    #     # Clock.schedule_interval(self.update, 0.05)
+    def on_enter(self, *args):
+        sleep(1)
+        print("woah!")
+        Clock.schedule_interval(self.update, 0.05)
 
     def stateMachine(self):
         pass
