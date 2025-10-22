@@ -1,3 +1,4 @@
+from kivy.clock import Clock
 from kivy.properties import ColorProperty
 from kivy.uix.screenmanager import Screen
 
@@ -27,17 +28,28 @@ class MainScreen(Screen):
         super(MainScreen, self).__init__(**kwargs)
         self.machine: PerpetualMachine = machine
 
+    def on_enter(self, *args):
+        Clock.schedule_interval(self.update, 1.0 / 60.0)
+
     def stateMachine(self):
         pass
 
     def toggler(self):
         pass
 
-    def step(self):
+    def update(self):
         self.stateMachine()
+        self.ids.stair_speed_label.text = f"Stair Speed {self.ids.stair_speed_slider.value}"
+        self.ids.ramp_speed_label.text = f"Ramp Speed {self.ids.ramp_speed_slider.value}"
 
     def toggle_auto_manual(self):
         self.auto_toggle = not self.auto_toggle
+        if self.auto_toggle:
+            # Do auto stuff, statemachine stuff
+            pass
+        else:
+            # Do manual stuff, button stuff
+            pass
 
     def pressed(self):
         """
