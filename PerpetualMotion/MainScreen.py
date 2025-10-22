@@ -28,7 +28,7 @@ class MainScreen(Screen):
     def __init__(self, machine: PerpetualMachine, **kwargs):
         super(MainScreen, self).__init__(**kwargs)
         self.machine: PerpetualMachine = machine
-        self.manager.currnt = 'main'
+        self.manager.current = 'main'
 
     # def on_enter(self, *args):
     #     sleep(1)
