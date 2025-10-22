@@ -37,7 +37,7 @@ class MainScreen(Screen):
     def toggler(self):
         pass
 
-    def update(self):
+    def update(self, dt=None):
         self.stateMachine()
         self.ids.stair_speed_label.text = f"Stair Speed {self.ids.stair_speed_slider.value}"
         self.ids.ramp_speed_label.text = f"Ramp Speed {self.ids.ramp_speed_slider.value}"
