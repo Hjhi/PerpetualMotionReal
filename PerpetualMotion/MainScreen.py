@@ -45,6 +45,7 @@ class MainScreen(Screen):
         self.stateMachine()
 
     def toggle_auto_manual(self):
+        print("pressed")
         self.auto_toggle = not self.auto_toggle
         if self.auto_toggle:
             # Do auto stuff, statemachine stuff

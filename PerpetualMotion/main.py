@@ -6,6 +6,8 @@ from dpeaDPi.DPiStepper import DPiStepper
 from MainScreen import MainScreen
 from PerpetualMachine import PerpetualMachine
 
+#running into display issues enter this: export DISPLAY=:0
+
 os.environ['DISPLAY'] = ":0.0"
 os.environ["KIVY_WINDOW"] = "egl_rpi"
 import sys
