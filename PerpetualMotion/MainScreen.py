@@ -43,21 +43,19 @@ class MainScreen(Screen):
     def update(self, dt=None):
         print("update called")
         self.stateMachine()
-        self.ids.auto_start_stop.width = 0
 
     def toggle_auto_manual(self):
         print("pressed")
         self.auto_toggle = not self.auto_toggle
         if self.auto_toggle:
             # Do auto stuff, statemachine stuff
-            self.ids.auto_start_stop.width = 0.1 * self.width
-            self.ids.auto_start_stop.height = 0.1 * self.height
+            self.ids.auto_start_stop.x = self.width * (0.5 - 0.05)
 
             pass
         else:
             # Do manual stuff, button stuff
             self.start_stop_auto() if self.auto_start else 0
-            self.ids.auto_start_stop.width = 0
+            self.ids.auto_start_stop.x = self.width * 10
             pass
 
     def start_stop_auto(self):
