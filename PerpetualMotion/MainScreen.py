@@ -43,8 +43,6 @@ class MainScreen(Screen):
     def update(self, dt=None):
         print("update called")
         self.stateMachine()
-        self.ids.stair_speed_label.text = f"Stair Speed {self.ids.stair_speed_slider.value}"
-        self.ids.ramp_speed_label.text = f"Ramp Speed {self.ids.ramp_speed_slider.value}"
 
     def toggle_auto_manual(self):
         self.auto_toggle = not self.auto_toggle

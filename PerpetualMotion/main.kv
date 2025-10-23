@@ -32,7 +32,7 @@
         color: "black"
         pos_hint: {"x": 0.05, "y": 0.05}
         halign: "left"
-        text: "Set Ramp Speed: 0"
+        text: f"Set Ramp Speed: {int(ramp_speed_slider.value)}%"
         font_size: 21
         text_size: self.size
         size_hint: (0.2, 0.1)
@@ -53,7 +53,7 @@
         pos_hint: {"x": 0.05, "y": 0.025}
         halign: "left"
         valign: "bottom"
-        text: "Set Stair Speed: 0"
+        text: f"Set Stair Speed: {int(stair_speed_slider)}"
         font_size: 21
         text_size: self.size
         size_hint: (1, 0.1)
