@@ -24,6 +24,7 @@ class MainScreen(Screen):
     slate_green: ColorProperty = ColorProperty("#6B7D7D")
 
     auto_toggle: bool = True
+    auto_start: bool = False
 
     def __init__(self, machine: PerpetualMachine, **kwargs):
         super(MainScreen, self).__init__(**kwargs)
@@ -49,11 +50,25 @@ class MainScreen(Screen):
         self.auto_toggle = not self.auto_toggle
         if self.auto_toggle:
             # Do auto stuff, statemachine stuff
-            self.ids.auto_start_stop.size_hint = (0.1, 0.1)
+            self.ids.auto_start_stop.width = 0.1 * self.width
+            self.ids.auto_start_stop.height = 0.1 * self.height
+
             pass
         else:
             # Do manual stuff, button stuff
+            self.start_stop_auto() if self.auto_start else 0
+            self.ids.auto_start_stop.width = 0
             pass
+
+    def start_stop_auto(self):
+        self.auto_start = not self.auto_start
+        if self.auto_start:
+            self.ids.auto_start_stop.text = "Stop"
+            self.ids.auto_start_stop.fill_color = self.red
+        else:
+            self.ids.auto_start_stop.text = "Start"
+            self.ids.auto_start_stop.fill_color = self.green
+
 
     def admin_action(self):
         """
