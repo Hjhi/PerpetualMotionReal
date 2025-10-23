@@ -43,6 +43,7 @@ class MainScreen(Screen):
     def update(self, dt=None):
         print("update called")
         self.stateMachine()
+        self.ids.auto_start_stop.width = 0
 
     def toggle_auto_manual(self):
         print("pressed")
