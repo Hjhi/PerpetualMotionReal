@@ -57,7 +57,7 @@ class PerpetualMachine:
         match self.ramp_state:
             case self.RampState.HOME:
                 if not status[3]:
-                    self.dpiStepper.moveToHomeInSteps(0, -1, self.ramp_speed, 99999)
+                    self.dpiStepper.moveToHomeInSteps(0, 1, self.ramp_speed, 99999)
                     self.close_gate()
                 if status[3] and self.dpiComputer.readDigitalIn(self.prox_sensor_bottom):
                     self.open_gate()
@@ -77,7 +77,7 @@ class PerpetualMachine:
 
     def startup(self):
         self.dpiStepper.enableMotors(True)
-        self.dpiStepper.moveToHomeInSteps(0, -1, 1600 * self.ramp_speed, 99999)
+        self.dpiStepper.moveToHomeInSteps(0, 1, 1600 * self.ramp_speed, 99999)
         sleep(0.5)
         while not self.dpiStepper.getAllMotorsStopped():
             sleep(0.02)
