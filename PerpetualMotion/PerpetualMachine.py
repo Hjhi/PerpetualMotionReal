@@ -77,7 +77,7 @@ class PerpetualMachine:
 
     def startup(self):
         self.dpiStepper.enableMotors(True)
-        self.dpiStepper.moveToHomeInSteps(0, 1, 1600 * self.ramp_speed, 99999)
+        self.dpiStepper.moveToHomeInSteps(0, 1, 1600, 99999)
         sleep(0.5)
         while not self.dpiStepper.getAllMotorsStopped():
             sleep(0.02)
