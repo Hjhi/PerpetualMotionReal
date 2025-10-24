@@ -86,7 +86,7 @@ class PerpetualMachine:
 
     def set_stair_speed(self, speed: float):
         s = speed * 40
-        self.stair_speed = 0 if speed == 0 else int(90 - 20 + speed)
+        self.stair_speed = 0 if speed == 0 else int(90 - (20 + speed))
         print(self.stair_speed)
         if self.stair_power == self.OnOffState.ON:
             self.turn_stairs_on()
