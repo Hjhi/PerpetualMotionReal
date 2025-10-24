@@ -8,7 +8,7 @@ def main(m: PerpetualMachine):
         m.set_stair_speed(100)
         sleep(5)
         print("low speed")
-        m.set_stair_speed(0)
+        m.set_stair_speed(30)
         sleep(5)
 
 
