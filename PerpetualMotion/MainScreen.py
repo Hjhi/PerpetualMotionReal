@@ -29,10 +29,6 @@ class MainScreen(Screen):
     auto_toggle: bool = True
     auto_start: bool = False
 
-    stair_toggle: bool = False
-    ramp_toggle: bool = False
-    start_stop_machine:  bool = False
-
     class State(Enum):
         RAMP_UP = 0
         RAMP_DOWN = 1
@@ -49,16 +45,12 @@ class MainScreen(Screen):
     def on_enter(self, *args):
         Clock.schedule_interval(self.update, 0.05)
 
+
     def manual_state_machine(self):
         pass
 
-
     def update(self, dt=None):
         print("update called")
-        if self.auto_toggle or not self.safe_to_switch:
-            self.auto_state_machine()
-        else:
-            self.manual_state_machine()
 
     def toggle_auto_manual(self):
         print("pressed")
@@ -67,14 +59,11 @@ class MainScreen(Screen):
             # Do auto stuff, statemachine stuff
             self.ids.auto_start_stop.x = self.width * (0.5 - 0.05)
             self.ids.auto_manual_toggle.text = "Set Manual Mode"
-
-            pass
         else:
             # Do manual stuff, button stuff
             self.start_stop_auto() if self.auto_start else 0
             self.ids.auto_start_stop.x = self.width * 10
             self.ids.auto_manual_toggle.text = "Set Auto Mode"
-            pass
 
     def start_stop_auto(self):
         self.auto_start = not self.auto_start
@@ -86,11 +75,16 @@ class MainScreen(Screen):
             self.ids.auto_start_stop.fill_color = self.green
 
     def toggle_stairs(self):
-
-        pass
+        if self.machine.is_stair_on():
+            self.machine.turn_stairs_off()
+        else:
+            self.machine.turn_stairs_on()
 
     def toggle_ramp(self):
-        pass
+        if self.machine.is_ramp_on():
+            self.machine.turn_ramp_off()
+        else:
+            self.machine.turn_ramp_on()
 
     def toggle_machine(self):
         if self.start_stop_machine:

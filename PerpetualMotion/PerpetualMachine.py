@@ -19,7 +19,7 @@ class PerpetualMachine:
     ramp_motor: int = 0
 
     ramp_speed: float = 0
-    stair_speed: float = 0
+    stair_speed: int = 0
     max_ramp_RPS: float = 5
     max_stair_speed: float = 90
 
@@ -55,7 +55,7 @@ class PerpetualMachine:
         self.prox_sensor_top = self.dpiComputer.IN_CONNECTOR__IN_0
         self.prox_sensor_bottom = self.dpiComputer.IN_CONNECTOR__IN_1
 
-    def run_ramp(self):
+    def run_ramp_auto(self):
         status = self.dpiStepper.getStepperStatus(0)
 
         match self.ramp_power:
@@ -84,8 +84,7 @@ class PerpetualMachine:
                     self.dpiStepper.moveToRelativePositionInRevolutions(0, self.ramp_top_pos, False)
 
     def set_stair_speed(self, speed: float):
-        self.stair_speed = speed
-        self.dpiComputer.writeServo(self.stair_servo_port, int(90 + self.max_stair_speed * speed))
+        self.stair_speed = int(90 + self.max_stair_speed * speed)
 
     def set_ramp_speed(self, speed: float):
         self.ramp_speed = speed
@@ -100,12 +99,20 @@ class PerpetualMachine:
 
     def turn_stairs_on(self):
         self.stair_power = self.OnOffState.ON
+        self.dpiComputer.writeServo(self.stair_servo_port, self.stair_speed)
 
     def turn_stairs_off(self):
         self.stair_power = self.OnOffState.OFF
+        self.dpiComputer.writeServo(self.stair_servo_port, 90)
 
     def open_gate(self):
         self.dpiComputer.writeServo(self.gate_servo_port, 90)
 
     def close_gate(self):
         self.dpiComputer.writeServo(self.gate_servo_port, 0)
+
+    def is_stair_on(self):
+        return self.stair_power == self.OnOffState.ON
+
+    def is_ramp_on(self):
+        return self.ramp_power == self.OnOffState.ON
