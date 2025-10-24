@@ -29,14 +29,6 @@ class MainScreen(Screen):
     auto_toggle: bool = True
     auto_start: bool = False
 
-    class State(Enum):
-        RAMP_UP = 0
-        RAMP_DOWN = 1
-        RESET = 2
-
-    ramp_state: State = State.RAMP_DOWN
-    safe_to_switch: bool = False
-
     def __init__(self, machine: PerpetualMachine, **kwargs):
         super(MainScreen, self).__init__(**kwargs)
         sleep(1)
@@ -51,6 +43,12 @@ class MainScreen(Screen):
 
     def update(self, dt=None):
         print("update called")
+        if self.auto_start:
+            self.machine.run_ramp_auto()
+
+        self.machine.set_stair_speed(self.ids.stair_speed_slider.value/100)
+        self.machine.set_ramp_speed(self.ids.ramp_speed_slider.value/100)
+
 
     def toggle_auto_manual(self):
         print("pressed")
@@ -59,6 +57,8 @@ class MainScreen(Screen):
             # Do auto stuff, statemachine stuff
             self.ids.auto_start_stop.x = self.width * (0.5 - 0.05)
             self.ids.auto_manual_toggle.text = "Set Manual Mode"
+            self.machine.turn_stairs_on()
+            self.machine.turn_ramp_on()
         else:
             # Do manual stuff, button stuff
             self.start_stop_auto() if self.auto_start else 0

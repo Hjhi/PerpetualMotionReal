@@ -51,4 +51,8 @@ if __name__ == "__main__":
     Config.set('graphics', 'fullscreen', 'auto')
     Config.set('graphics', 'window_state', 'maximized')
     Config.write()
-    ProjectNameGUI().run()
+    p = ProjectNameGUI()
+    try:
+        p.run()
+    finally:
+        p.machine.halt()
