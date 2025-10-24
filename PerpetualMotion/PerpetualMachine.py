@@ -16,6 +16,7 @@ class PerpetualMachine:
 
     ramp_speed: float = 0
     stair_speed: int = 90
+
     max_ramp_RPS: float = 5
 
     class GateState(Enum):
@@ -84,7 +85,8 @@ class PerpetualMachine:
         print("motor startup finished")
 
     def set_stair_speed(self, speed: float):
-        self.stair_speed = int(90 - 90 * speed)
+        s = speed * 40
+        self.stair_speed = 0 if speed == 0 else int(90 - 20 + speed)
         print(self.stair_speed)
         if self.stair_power == self.OnOffState.ON:
             self.turn_stairs_on()
