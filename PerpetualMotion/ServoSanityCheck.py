@@ -4,7 +4,7 @@ from time import sleep
 def main(m: PerpetualMachine):
     m.turn_stairs_on()
     while True:
-        for i in range(100):
+        for i in range(10):
             print(i)
             m.set_stair_speed(i)
             sleep(5)
