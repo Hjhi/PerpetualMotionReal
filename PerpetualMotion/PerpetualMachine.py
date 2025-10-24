@@ -1,7 +1,12 @@
+import math
+from unittest import case
+
 from dpeaDPi.DPiComputer import DPiComputer
 from dpeaDPi.DPiStepper import DPiStepper
 
 from enum import Enum
+
+from PerpetualMotion.sensorTest import dpiComputer
 
 
 class PerpetualMachine:
@@ -26,11 +31,18 @@ class PerpetualMachine:
         ON = True
         OFF = False
 
-    ramp_state: OnOffState = OnOffState.OFF
-    stair_state: OnOffState = OnOffState.OFF
+    class RampState(Enum):
+        EJECT = 0
+        HOME = 1
+        OFF = 2
+
+    ramp_state: RampState = RampState.OFF
+    ramp_power: OnOffState = OnOffState.OFF
+    stair_power: OnOffState = OnOffState.OFF
     gate_state: GateState = GateState.CLOSED
 
     queue_auto_manual_change: bool = False
+    ramp_top_pos: float = 10 # revolutions
 
     def __init__(self, **kwargs):
         self.dpiComputer = DPiComputer()
@@ -43,39 +55,33 @@ class PerpetualMachine:
         self.prox_sensor_top = self.dpiComputer.IN_CONNECTOR__IN_0
         self.prox_sensor_bottom = self.dpiComputer.IN_CONNECTOR__IN_1
 
-    def open_gate(self):
-        pass
+    def run_ramp(self):
+        status = self.dpiStepper.getStepperStatus(0)
 
-    def close_gate(self):
-        pass
+        match self.ramp_power:
+            case self.OnOffState.ON:
+                if not status[2]:
+                    self.dpiStepper.enableMotors(True)
+            case self.OnOffState.OFF:
+                if status[2]:
+                    self.dpiStepper.enableMotors(False)
 
+        match self.ramp_state:
+            case self.RampState.HOME:
 
-    def run_auto(self):
+                if not status[3]:
+                    self.dpiStepper.moveToHomeInSteps(0, -1, self.ramp_speed, 99999)
+                    self.close_gate()
+                if status[3] and self.dpiComputer.readDigitalIn(self.prox_sensor_bottom):
+                    self.open_gate()
+                if status[3] and not self.dpiComputer.readDigitalIn(self.prox_sensor_bottom):
+                    self.ramp_state = self.RampState.EJECT
 
-        if (
-            self.ramp_clear()
-            and self.ramp_at_home
-            and not self.queue_auto_manual_change
-            and self.gate_state == self.GateState.CLOSED
-        ):
-            self.open_gate()
-
-        elif self.gate_state == self.GateState.OPENED:
-            self.close_gate()
-
-        if not self.ramp_clear() and self.ramp_at_home:
-            self.eject_marble()
-        if self.ramp_clear() and not self.ramp_at_home:
-            self.home_ramp()
-
-        if self.ramp_clear() and self.ramp_at_home and self.gate_state == self.GateState.CLOSED:
-            self.queue_auto_manual_change = False
-
-
-
-        pass
-    def ramp_clear(self):
-        pass
+            case self.RampState.EJECT:
+                if not status[3] and not self.dpiComputer.readDigitalIn(self.prox_sensor_top):
+                    self.ramp_state = self.RampState.HOME
+                if status[3] and self.dpiComputer.readDigitalIn(self.prox_sensor_top):
+                    self.dpiStepper.moveToRelativePositionInRevolutions(0, self.ramp_top_pos, False)
 
     def set_stair_speed(self, speed: float):
         self.stair_speed = speed
@@ -83,12 +89,23 @@ class PerpetualMachine:
 
     def set_ramp_speed(self, speed: float):
         self.ramp_speed = speed
-        self.dpiStepper.setSpeedInStepsPerSecond(0, self.max_ramp_speed * speed)
+        self.dpiStepper.setSpeedInStepsPerSecond(0, self.max_ramp_RPS * speed)
         self.dpiStepper.setAccelerationInRevolutionsPerSecondPerSecond(0, self.max_ramp_RPS * speed)
 
-    def toggle_ramp(self, state: bool):
-        self.ramp_state = state
-        self.dpiStepper.enableMotors(state)
+    def turn_ramp_on(self):
+        self.ramp_power = self.OnOffState.ON
 
-    def toggle_stairs(self, state: bool):
-        self.stair_state = state
+    def turn_ramp_off(self):
+        self.ramp_power = self.OnOffState.OFF
+
+    def turn_stairs_on(self):
+        self.stair_power = self.OnOffState.ON
+
+    def turn_stairs_off(self):
+        self.stair_power = self.OnOffState.OFF
+
+    def open_gate(self):
+        self.dpiComputer.writeServo(self.gate_servo_port, 90)
+
+    def close_gate(self):
+        self.dpiComputer.writeServo(self.gate_servo_port, 0)
