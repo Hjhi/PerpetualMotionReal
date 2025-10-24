@@ -1,6 +1,4 @@
-import math
-from unittest import case
-
+from time import sleep
 from dpeaDPi.DPiComputer import DPiComputer
 from dpeaDPi.DPiStepper import DPiStepper
 
@@ -56,17 +54,8 @@ class PerpetualMachine:
     def run_ramp_auto(self):
         status = self.dpiStepper.getStepperStatus(0)
 
-        match self.ramp_power:
-            case self.OnOffState.ON:
-                if not status[2]:
-                    self.dpiStepper.enableMotors(True)
-            case self.OnOffState.OFF:
-                if status[2]:
-                    self.dpiStepper.enableMotors(False)
-
         match self.ramp_state:
             case self.RampState.HOME:
-
                 if not status[3]:
                     self.dpiStepper.moveToHomeInSteps(0, -1, self.ramp_speed, 99999)
                     self.close_gate()
@@ -86,6 +75,12 @@ class PerpetualMachine:
         self.turn_ramp_off()
         self.close_gate()
 
+    def startup(self):
+        self.dpiStepper.moveToHomeInSteps(0, -1, 1600 * self.ramp_speed, 99999)
+        while not self.dpiStepper.getAllMotorsStopped():
+            sleep(0.02)
+        print("motor startup finished")
+
     def set_stair_speed(self, speed: float):
         self.stair_speed = int(90 + self.max_stair_speed * speed)
 
@@ -95,10 +90,13 @@ class PerpetualMachine:
         self.dpiStepper.setAccelerationInRevolutionsPerSecondPerSecond(0, self.max_ramp_RPS * speed)
 
     def turn_ramp_on(self):
-        self.ramp_power = self.OnOffState.ON
+        if not self.dpiStepper.getStepperStatus(0)[2]:
+            self.dpiStepper.enableMotors(True)
+
 
     def turn_ramp_off(self):
-        self.ramp_power = self.OnOffState.OFF
+        if self.dpiStepper.getStepperStatus(0)[2]:
+            self.dpiStepper.enableMotors(False)
 
     def turn_stairs_on(self):
         self.stair_power = self.OnOffState.ON

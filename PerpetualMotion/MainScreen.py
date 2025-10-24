@@ -33,6 +33,8 @@ class MainScreen(Screen):
         super(MainScreen, self).__init__(**kwargs)
         sleep(1)
         self.machine: PerpetualMachine = machine
+        self.machine.startup()
+        print("startup done")
 
     def on_enter(self, *args):
         Clock.schedule_interval(self.update, 0.05)
@@ -63,7 +65,8 @@ class MainScreen(Screen):
             # Do manual stuff, button stuff
             self.start_stop_auto() if self.auto_start else 0
             self.ids.auto_start_stop.x = self.width * 10
-            self.ids.auto_manual_toggle.text = "Set Auto Mode"
+            self.machine.turn_stairs_off()
+            self.machine.turn_ramp_off()
 
     def start_stop_auto(self):
         self.auto_start = not self.auto_start
