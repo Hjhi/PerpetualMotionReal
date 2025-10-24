@@ -83,6 +83,7 @@ class PerpetualMachine:
             sleep(0.02)
         self.dpiStepper.enableMotors(False)
         print("motor startup finished")
+        print(self.dpiStepper.getAllMotorsStopped())
 
     def set_stair_speed(self, speed: float):
         s = speed * 40
