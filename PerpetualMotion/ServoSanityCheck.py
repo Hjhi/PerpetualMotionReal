@@ -2,9 +2,12 @@ from PerpetualMachine import PerpetualMachine
 from time import sleep
 
 def main(m: PerpetualMachine):
+    m.turn_stairs_on()
     while True:
-        m.turn_stairs_on()
         m.set_stair_speed(87)
+        sleep(5)
+        m.set_stair_speed(50)
+        sleep(5)
 
 
 if __name__ == "__main__":
