@@ -15,7 +15,7 @@ class PerpetualMachine:
     ramp_motor: int = 0
 
     ramp_speed: float = 0
-    stair_speed: int = 0
+    stair_speed: int = 90
     max_ramp_RPS: float = 5
     max_stair_speed: float = 90
 
