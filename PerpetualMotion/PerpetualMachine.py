@@ -57,11 +57,14 @@ class PerpetualMachine:
         match self.ramp_state:
             case self.RampState.HOME:
                 if not status[3]:
+                    print("moving home")
                     self.dpiStepper.moveToHomeInSteps(0, 1, self.ramp_speed, 99999)
                     self.close_gate()
                 if status[3] and self.dpiComputer.readDigitalIn(self.prox_sensor_bottom):
+                    print("open gate")
                     self.open_gate()
                 if status[3] and not self.dpiComputer.readDigitalIn(self.prox_sensor_bottom):
+                    print("got to top")
                     self.ramp_state = self.RampState.EJECT
 
             case self.RampState.EJECT:
@@ -88,7 +91,6 @@ class PerpetualMachine:
     def set_stair_speed(self, speed: float):
         s = speed * 40
         self.stair_speed = 90 if speed == 0 else int(90 - (20 + s))
-        print(self.stair_speed)
         if self.stair_power == self.OnOffState.ON:
             self.turn_stairs_on()
 

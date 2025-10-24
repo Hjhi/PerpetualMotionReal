@@ -44,7 +44,6 @@ class MainScreen(Screen):
         pass
 
     def update(self, dt=None):
-        print("update called")
         if self.auto_start:
             self.machine.run_ramp_auto()
 
