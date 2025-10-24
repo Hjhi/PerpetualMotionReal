@@ -17,7 +17,7 @@ class PerpetualMachine:
     ramp_speed: float = 0
     stair_speed: int = 90
 
-    max_ramp_RPS: float = 5
+    max_ramp_RPS: float = 10
 
     class GateState(Enum):
         OPENED = True
@@ -102,7 +102,6 @@ class PerpetualMachine:
     def turn_ramp_on(self):
         if not self.dpiStepper.getStepperStatus(0)[2]:
             self.dpiStepper.enableMotors(True)
-
 
     def turn_ramp_off(self):
         if self.dpiStepper.getStepperStatus(0)[2]:
