@@ -7,7 +7,7 @@ def main(m: PerpetualMachine):
         for i in range(10):
             print(i)
             m.set_stair_speed(i/100.0)
-            sleep(5)
+            sleep(2)
 
 if __name__ == "__main__":
     machine = PerpetualMachine()
