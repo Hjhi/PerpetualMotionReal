@@ -6,8 +6,6 @@ from dpeaDPi.DPiStepper import DPiStepper
 
 from enum import Enum
 
-from PerpetualMotion.sensorTest import dpiComputer
-
 
 class PerpetualMachine:
     """
