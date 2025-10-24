@@ -87,7 +87,7 @@ class PerpetualMachine:
     def set_stair_speed(self, speed: float):
         self.stair_speed = int(self.max_stair_speed * speed)
         if self.stair_power == self.OnOffState.ON:
-            self.set_ramp_speed(self.stair_speed)
+            self.turn_stairs_on()
 
     def set_ramp_speed(self, speed: float):
         self.ramp_speed = speed
