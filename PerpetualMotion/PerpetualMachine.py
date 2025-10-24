@@ -76,10 +76,12 @@ class PerpetualMachine:
         self.close_gate()
 
     def startup(self):
+        self.dpiStepper.enableMotors(True)
         self.dpiStepper.moveToHomeInSteps(0, -1, 1600 * self.ramp_speed, 99999)
         sleep(0.5)
         while not self.dpiStepper.getAllMotorsStopped():
             sleep(0.02)
+        self.dpiStepper.enableMotors(False)
         print("motor startup finished")
 
     def set_stair_speed(self, speed: float):
