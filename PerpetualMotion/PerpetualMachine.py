@@ -30,9 +30,8 @@ class PerpetualMachine:
     class RampState(Enum):
         EJECT = 0
         HOME = 1
-        OFF = 2
 
-    ramp_state: RampState = RampState.OFF
+    ramp_state: RampState = RampState.HOME
     ramp_power: OnOffState = OnOffState.OFF
     stair_power: OnOffState = OnOffState.OFF
     gate_state: GateState = GateState.CLOSED
