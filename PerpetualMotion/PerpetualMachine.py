@@ -67,7 +67,7 @@ class PerpetualMachine:
 
             case self.RampState.HOME:
                 if not self.home:
-                    if self.dpiStepper.getCurrentPositionInRevolutions(0) < 1:
+                    if self.dpiStepper.getCurrentPositionInRevolutions(0)[1] < 1:
                         self.home = True
                 if self.home and self.dpiComputer.readDigitalIn(self.prox_sensor_bottom):
                     print("open gate")
@@ -122,7 +122,6 @@ class PerpetualMachine:
 
     def set_ramp_speed(self, speed: float):
         self.ramp_speed = speed
-        print("hi!")
         self.dpiStepper.setSpeedInRevolutionsPerSecond(0, self.max_ramp_RPS * speed)
         self.dpiStepper.setAccelerationInRevolutionsPerSecondPerSecond(0, self.max_ramp_RPS * speed)
 
