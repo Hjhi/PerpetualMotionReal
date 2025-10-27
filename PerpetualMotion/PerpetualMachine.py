@@ -17,7 +17,7 @@ class PerpetualMachine:
     ramp_speed: float = 0
     stair_speed: int = 90
 
-    max_ramp_RPS: float = 10
+    max_ramp_RPS: float = 6
 
     class GateState(Enum):
         OPENED = True
@@ -62,6 +62,7 @@ class PerpetualMachine:
                 if not status[3]:
                     print("moving home")
                     self.close_gate()
+                    self.running = True
                     self.dpiStepper.moveToHomeInRevolutions(0, 1, self.ramp_speed, 99999)
                 if status[3] and self.dpiComputer.readDigitalIn(self.prox_sensor_bottom):
                     print("open gate")
@@ -69,6 +70,7 @@ class PerpetualMachine:
                 if status[3] and not self.dpiComputer.readDigitalIn(self.prox_sensor_bottom):
                     print("got to bottom")
                     self.ramp_state = self.RampState.EJECT
+                    self.running = False
                     self.dpiStepper.enableMotors(True)
 
             case self.RampState.EJECT:

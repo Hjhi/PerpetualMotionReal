@@ -40,7 +40,8 @@ class MainScreen(Screen):
         Clock.schedule_interval(self.update, 0.05)
         self.machine.turn_stairs_on()
         self.machine.turn_ramp_on()
-
+        self.machine.set_stair_speed(0)
+        self.machine.set_ramp_speed(0)
 
     def manual_state_machine(self):
         pass
