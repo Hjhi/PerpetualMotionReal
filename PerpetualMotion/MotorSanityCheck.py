@@ -28,7 +28,7 @@ def main(dpi: DPiStepper):
             sleep(0.02)
 
         # dpi.moveToHomeInRevolutions(0, 1, 3, 1600 * 28)
-        dpi.moveToAbsolutePositionInRevolutions(0, 0, True)
+        dpi.moveToAbsolutePositionInRevolutions(0, 0, False)
 
         while not dpi.getStepperStatus(0)[1]:
             print(dpi.getCurrentPositionInRevolutions(0))
