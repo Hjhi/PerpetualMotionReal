@@ -2,6 +2,7 @@ from PerpetualMachine import PerpetualMachine
 
 def main(m: PerpetualMachine):
     m.startup()
+    m.dpiStepper.enableMotors(True)
     m.set_ramp_speed(0.5)
     while True:
         m.run_ramp_auto()
