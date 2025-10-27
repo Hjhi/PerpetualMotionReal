@@ -68,9 +68,9 @@ class PerpetualMachine:
                     self.open_gate()
                 if status[3] and not self.dpiComputer.readDigitalIn(self.prox_sensor_bottom):
                     print("got to bottom")
-                    self.set_ramp_speed(self.ramp_speed)
                     self.ramp_state = self.RampState.EJECT
                     self.running = False
+                    self.set_ramp_speed(self.ramp_speed)
 
             case self.RampState.EJECT:
 
