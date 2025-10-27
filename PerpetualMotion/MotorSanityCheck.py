@@ -26,7 +26,6 @@ def main(dpi: DPiStepper):
             print(dpi.getCurrentPositionInRevolutions(0))
             sleep(0.02)
 
-        sleep(1)
 
         # dpi.moveToHomeInRevolutions(0, 1, 3, 1600 * 28)
         dpi.moveToAbsolutePositionInRevolutions(0, 0, False)
@@ -38,7 +37,6 @@ def main(dpi: DPiStepper):
         # dpi.setSpeedInRevolutionsPerSecond(0, 3)
         # dpi.setAccelerationInRevolutionsPerSecondPerSecond(0, 3)
 
-        sleep(1.5)
 
 
 

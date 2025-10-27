@@ -30,6 +30,7 @@ class PerpetualMachine:
     class RampState(Enum):
         EJECT = 0
         HOME = 1
+        HOMING = 2
 
     ramp_state: RampState = RampState.HOME
     ramp_power: OnOffState = OnOffState.OFF
@@ -52,40 +53,41 @@ class PerpetualMachine:
         self.prox_sensor_top = self.dpiComputer.IN_CONNECTOR__IN_0
         self.prox_sensor_bottom = self.dpiComputer.IN_CONNECTOR__IN_1
 
+    home: bool = True
+
     def run_ramp_auto(self):
         status = self.dpiStepper.getStepperStatus(0)
         print(self.ramp_state)
 
         match self.ramp_state:
+            case self.RampState.HOMING:
+                print("moving home")
+                self.dpiStepper.moveToAbsolutePositionInRevolutions(0, 0, False)
+                self.ramp_state = self.RampState.HOME
+
             case self.RampState.HOME:
-                if not status[3]:
-                    print("moving home")
-                    self.close_gate()
-                    self.running = True
-                    self.move_to_home()
-                if status[3] and self.dpiComputer.readDigitalIn(self.prox_sensor_bottom):
+                if not self.home:
+                    if self.dpiStepper.getCurrentPositionInRevolutions(0) < 1:
+                        self.home = True
+                if self.home and self.dpiComputer.readDigitalIn(self.prox_sensor_bottom):
                     print("open gate")
                     self.open_gate()
-                if status[3] and not self.dpiComputer.readDigitalIn(self.prox_sensor_bottom):
+                if self.home and not self.dpiComputer.readDigitalIn(self.prox_sensor_bottom):
                     print("got to bottom")
                     self.ramp_state = self.RampState.EJECT
                     self.running = False
-                    self.set_ramp_speed(self.ramp_speed)
-                    self.reset_home_debounce()
 
             case self.RampState.EJECT:
 
                 print(self.dpiStepper.getCurrentPositionInRevolutions(0))
-                if not status[3] and not self.dpiComputer.readDigitalIn(self.prox_sensor_top):
+                if not self.home and not self.dpiComputer.readDigitalIn(self.prox_sensor_top):
                     print("got to top")
                     self.dpiStepper.moveToRelativePositionInRevolutions(0, self.ramp_speed, False)
-                    self.running = False
-                    self.ramp_state = self.RampState.HOME
-                if status[3] and self.dpiComputer.readDigitalIn(self.prox_sensor_top):
+                    self.ramp_state = self.RampState.HOMING
+                if self.home and self.dpiComputer.readDigitalIn(self.prox_sensor_top):
                     print("moving to top")
-                    self.running = True
-                    print(self.dpiStepper.getCurrentVelocityInRevolutionsPerSecond(0))
                     self.dpiStepper.moveToRelativePositionInRevolutions(0, -self.ramp_top_pos, False)
+                    self.home = False
 
     def halt(self):
         self.turn_stairs_off()
@@ -120,10 +122,9 @@ class PerpetualMachine:
 
     def set_ramp_speed(self, speed: float):
         self.ramp_speed = speed
-        if not self.running:
-            print("hi!")
-            self.dpiStepper.setSpeedInRevolutionsPerSecond(0, self.max_ramp_RPS * speed)
-            self.dpiStepper.setAccelerationInRevolutionsPerSecondPerSecond(0, self.max_ramp_RPS * speed)
+        print("hi!")
+        self.dpiStepper.setSpeedInRevolutionsPerSecond(0, self.max_ramp_RPS * speed)
+        self.dpiStepper.setAccelerationInRevolutionsPerSecondPerSecond(0, self.max_ramp_RPS * speed)
 
     def turn_ramp_on(self):
         if not self.dpiStepper.getStepperStatus(0)[2]:
