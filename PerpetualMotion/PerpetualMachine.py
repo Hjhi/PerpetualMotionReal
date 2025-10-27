@@ -74,7 +74,7 @@ class PerpetualMachine:
                     self.dpiStepper.enableMotors(False)
                     self.ramp_state = self.RampState.HOME
                 if status[3] and self.dpiComputer.readDigitalIn(self.prox_sensor_top):
-                    self.dpiStepper.moveToRelativePositionInRevolutions(0, -self.ramp_top_pos, False)
+                    self.dpiStepper.moveToAbsolutePositionInRevolutions(0, -self.ramp_top_pos, False)
 
     def halt(self):
         self.turn_stairs_off()
