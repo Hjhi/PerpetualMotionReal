@@ -66,8 +66,8 @@ class PerpetualMachine:
                     self.dpiStepper.enableMotors(False)
                     self.dpiStepper.enableMotors(True)
                     if not self.homing_debounce:
-
-                    self.dpiStepper.moveToHomeInRevolutions(0, 1, self.ramp_speed, 99999)
+                        self.homing_debounce = True
+                        self.dpiStepper.moveToHomeInRevolutions(0, 1, self.ramp_speed, 99999)
                 if status[3] and self.dpiComputer.readDigitalIn(self.prox_sensor_bottom):
                     print("open gate")
                     self.open_gate()
@@ -75,6 +75,7 @@ class PerpetualMachine:
                     print("got to bottom")
                     self.ramp_state = self.RampState.EJECT
                     self.running = False
+                    self.homing_debounce = False
 
             case self.RampState.EJECT:
 
