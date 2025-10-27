@@ -16,7 +16,7 @@ def main():
     #          [3]: True returned if the "Homing" switch indicates "At home"
     #
     for _ in range(3):
-        dpiStepper.moveToAbsolutePositionInRevolutions(0, 28, False)
+        dpiStepper.moveToAbsolutePositionInRevolutions(0, -28, False)
 
         while not dpiStepper.getStepperStatus(0)[1]:
             sleep(0.02)
