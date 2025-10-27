@@ -60,7 +60,6 @@ class PerpetualMachine:
                     print("moving home")
                     self.close_gate()
                     self.dpiStepper.moveToHomeInRevolutions(0, 1, 28, 99999)
-                    self.dpiStepper.
                 if status[3] and self.dpiComputer.readDigitalIn(self.prox_sensor_bottom):
                     print("open gate")
                     self.open_gate()
