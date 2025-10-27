@@ -8,7 +8,7 @@ def main(dpi: DPiStepper):
     dpi.setSpeedInRevolutionsPerSecond(0, 3)
     dpi.setAccelerationInRevolutionsPerSecondPerSecond(0, 3)
     dpi.enableMotors(True)
-    dpi.moveToHomeInSteps(0, 1, 1600 * 3, 999999999)
+    dpi.moveToHomeInSteps(0, 1, 1600 * 3, 1600 * 28)
 
     while not dpi.getStepperStatus(0)[3]:
         sleep(0.02)
@@ -27,14 +27,15 @@ def main(dpi: DPiStepper):
             print(dpi.getCurrentPositionInRevolutions(0))
             sleep(0.02)
 
-        dpi.moveToHomeInRevolutions(0, 1, 3, 999999)
+        # dpi.moveToHomeInRevolutions(0, 1, 3, 1600 * 28)
+        dpi.moveToAbsolutePositionInRevolutions(0, 0, True)
 
-        while not dpi.getStepperStatus(0)[3]:
+        while not dpi.getStepperStatus(0)[1]:
             print(dpi.getCurrentPositionInRevolutions(0))
             sleep(0.02)
 
-        dpi.setSpeedInRevolutionsPerSecond(0, 3)
-        dpi.setAccelerationInRevolutionsPerSecondPerSecond(0, 3)
+        # dpi.setSpeedInRevolutionsPerSecond(0, 3)
+        # dpi.setAccelerationInRevolutionsPerSecondPerSecond(0, 3)
 
 
 
