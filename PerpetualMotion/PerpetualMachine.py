@@ -69,8 +69,10 @@ class PerpetualMachine:
 
             case self.RampState.EJECT:
                 if not status[3] and not self.dpiComputer.readDigitalIn(self.prox_sensor_top):
+                    self.dpiStepper.enableMotors(False)
                     self.ramp_state = self.RampState.HOME
                 if status[3] and self.dpiComputer.readDigitalIn(self.prox_sensor_top):
+                    print(self.dpiStepper.getCurrentPositionInRevolutions(0))
                     self.dpiStepper.moveToRelativePositionInRevolutions(0, -self.ramp_top_pos, False)
 
     def halt(self):
