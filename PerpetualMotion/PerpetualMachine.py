@@ -37,6 +37,7 @@ class PerpetualMachine:
     gate_state: GateState = GateState.CLOSED
 
     ramp_top_pos: float = 50 #revolutions
+    running:bool = False
 
     homing_debounce:bool = False
 
@@ -61,7 +62,7 @@ class PerpetualMachine:
                 if not status[3]:
                     print("moving home")
                     self.close_gate()
-                    self.dpiStepper.moveToHomeInRevolutions(0, 1, 28, 99999)
+                    self.dpiStepper.moveToHomeInRevolutions(0, 1, self.ramp_speed, 99999)
                 if status[3] and self.dpiComputer.readDigitalIn(self.prox_sensor_bottom):
                     print("open gate")
                     self.open_gate()
@@ -76,9 +77,11 @@ class PerpetualMachine:
                 if not status[3] and not self.dpiComputer.readDigitalIn(self.prox_sensor_top):
                     print("got to top")
                     self.dpiStepper.moveToRelativePositionInRevolutions(0, self.ramp_speed, False)
+                    self.running = False
                     self.ramp_state = self.RampState.HOME
                 if status[3] and self.dpiComputer.readDigitalIn(self.prox_sensor_top):
                     print("moving to top")
+                    self.running = True
                     self.dpiStepper.moveToRelativePositionInRevolutions(0, -self.ramp_top_pos, False)
 
     def halt(self):
@@ -104,8 +107,9 @@ class PerpetualMachine:
 
     def set_ramp_speed(self, speed: float):
         self.ramp_speed = speed
-        self.dpiStepper.setSpeedInRevolutionsPerSecond(0, self.max_ramp_RPS * speed)
-        self.dpiStepper.setAccelerationInRevolutionsPerSecondPerSecond(0, self.max_ramp_RPS * speed)
+        if not self.running:
+            self.dpiStepper.setSpeedInRevolutionsPerSecond(0, self.max_ramp_RPS * speed)
+            self.dpiStepper.setAccelerationInRevolutionsPerSecondPerSecond(0, self.max_ramp_RPS * speed)
 
     def turn_ramp_on(self):
         if not self.dpiStepper.getStepperStatus(0)[2]:
