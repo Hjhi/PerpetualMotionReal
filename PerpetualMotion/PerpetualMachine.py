@@ -62,7 +62,7 @@ class PerpetualMachine:
                     print("moving home")
                     self.close_gate()
                     self.running = True
-                    self.dpiStepper.moveToHomeInRevolutions(0, 1,  self.max_ramp_RPS * self.ramp_speed, 99999)
+                    self.move_to_home()
                 if status[3] and self.dpiComputer.readDigitalIn(self.prox_sensor_bottom):
                     print("open gate")
                     self.open_gate()
@@ -71,6 +71,7 @@ class PerpetualMachine:
                     self.ramp_state = self.RampState.EJECT
                     self.running = False
                     self.set_ramp_speed(self.ramp_speed)
+                    self.reset_home_debounce()
 
             case self.RampState.EJECT:
 
@@ -100,6 +101,16 @@ class PerpetualMachine:
         self.dpiStepper.enableMotors(False)
         print("motor startup finished")
         print(self.dpiStepper.getStepperStatus(0))
+
+    home_debounce: bool = False
+    def move_to_home(self):
+        if not self.home_debounce:
+            self.home_debounce = True
+            self.dpiStepper.moveToHomeInRevolutions(0, 1, self.max_ramp_RPS * self.ramp_speed, 99999)
+
+    def reset_home_debounce(self):
+        self.home_debounce = False
+
 
     def set_stair_speed(self, speed: float):
         s = speed * 40
