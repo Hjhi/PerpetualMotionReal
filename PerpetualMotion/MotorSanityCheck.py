@@ -9,6 +9,11 @@ def main():
     dpiStepper.setSpeedInRevolutionsPerSecond(0, 3)
     dpiStepper.setAccelerationInRevolutionsPerSecondPerSecond(0, 3)
     dpiStepper.enableMotors(True)
+    dpiStepper.moveToHomeInSteps(0, 1, 1600 * 3, 999999999)
+
+    while not dpiStepper.getStepperStatus(0)[3]:
+        sleep(0.02)
+
 
     #  Exit:   [0]: True returned on success, else False
     #          [1]: True returned if motor is stopped
