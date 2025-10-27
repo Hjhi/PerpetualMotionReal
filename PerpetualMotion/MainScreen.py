@@ -65,6 +65,8 @@ class MainScreen(Screen):
             self.ids.auto_manual_toggle.text = "Set Manual Mode"
             self.machine.turn_stairs_on()
             self.machine.turn_ramp_on()
+            self.machine.set_stair_speed(0)
+            self.machine.set_ramp_speed(0)
         else:
             # Do manual stuff, button stuff
             self.start_stop_auto() if self.auto_start else 0
