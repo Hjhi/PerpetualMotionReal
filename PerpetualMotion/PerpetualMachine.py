@@ -37,7 +37,7 @@ class PerpetualMachine:
     gate_state: GateState = GateState.CLOSED
 
     queue_auto_manual_change: bool = False
-    ramp_top_pos: float = 10 # revolutions
+    ramp_top_pos: float = 30 # revolutions
 
     def __init__(self, **kwargs):
         self.dpiComputer = DPiComputer()

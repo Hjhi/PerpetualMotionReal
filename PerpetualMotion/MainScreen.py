@@ -49,8 +49,8 @@ class MainScreen(Screen):
         if self.auto_start:
             self.machine.run_ramp_auto()
             self.machine.set_stair_speed(self.ids.stair_speed_slider.value / 100)
+            self.machine.set_ramp_speed(self.ids.ramp_speed_slider.value/100)
 
-        self.machine.set_ramp_speed(self.ids.ramp_speed_slider.value/100)
 
 
     def toggle_auto_manual(self):
