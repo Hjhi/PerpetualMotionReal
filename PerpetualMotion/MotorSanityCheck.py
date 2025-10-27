@@ -32,6 +32,8 @@ def main():
         while not dpiStepper.getStepperStatus(0)[3]:
             sleep(0.02)
 
+        dpiStepper.setSpeedInRevolutionsPerSecond(0, 3)
+        dpiStepper.setAccelerationInRevolutionsPerSecondPerSecond(0, 3)
 
 
 
