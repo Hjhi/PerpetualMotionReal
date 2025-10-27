@@ -96,7 +96,7 @@ class PerpetualMachine:
 
     def set_ramp_speed(self, speed: float):
         self.ramp_speed = speed
-        self.dpiStepper.setSpeedInStepsPerSecond(0, self.max_ramp_RPS * speed)
+        self.dpiStepper.setSpeedInRevolutionsPerSecond(0, self.max_ramp_RPS * speed)
         self.dpiStepper.setAccelerationInRevolutionsPerSecondPerSecond(0, self.max_ramp_RPS * speed)
 
     def turn_ramp_on(self):
