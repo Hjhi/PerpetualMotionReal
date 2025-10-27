@@ -36,8 +36,9 @@ class PerpetualMachine:
     stair_power: OnOffState = OnOffState.OFF
     gate_state: GateState = GateState.CLOSED
 
-    queue_auto_manual_change: bool = False
     ramp_top_pos: float = 29 #revolutions
+
+    homing_debounce:bool = False
 
     def __init__(self, **kwargs):
         self.dpiComputer = DPiComputer()
@@ -56,6 +57,7 @@ class PerpetualMachine:
 
         match self.ramp_state:
             case self.RampState.HOME:
+
                 if not status[3]:
                     print("moving home")
                     self.close_gate()
@@ -69,6 +71,7 @@ class PerpetualMachine:
                     self.dpiStepper.enableMotors(True)
 
             case self.RampState.EJECT:
+
                 print(self.dpiStepper.getCurrentPositionInRevolutions(0))
                 if not status[3] and not self.dpiComputer.readDigitalIn(self.prox_sensor_top):
                     self.dpiStepper.moveToRelativePositionInRevolutions(0, self.ramp_speed, False)
