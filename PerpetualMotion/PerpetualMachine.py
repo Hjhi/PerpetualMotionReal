@@ -36,7 +36,7 @@ class PerpetualMachine:
     stair_power: OnOffState = OnOffState.OFF
     gate_state: GateState = GateState.CLOSED
 
-    ramp_top_pos: float = 40 #revolutions
+    ramp_top_pos: float = 50 #revolutions
 
     homing_debounce:bool = False
 
