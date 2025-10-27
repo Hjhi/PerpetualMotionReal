@@ -25,11 +25,13 @@ def main():
         dpiStepper.moveToAbsolutePositionInRevolutions(0, -28, False)
 
         while not dpiStepper.getStepperStatus(0)[1]:
+            print(dpiStepper.getCurrentPositionInRevolutions(0))
             sleep(0.02)
 
         dpiStepper.moveToHomeInRevolutions(0, 1, 3, 999999)
 
         while not dpiStepper.getStepperStatus(0)[3]:
+            print(dpiStepper.getCurrentPositionInRevolutions(0))
             sleep(0.02)
 
         dpiStepper.setSpeedInRevolutionsPerSecond(0, 3)
