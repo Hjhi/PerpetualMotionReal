@@ -38,6 +38,8 @@ class MainScreen(Screen):
 
     def on_enter(self, *args):
         Clock.schedule_interval(self.update, 0.05)
+        self.machine.turn_stairs_on()
+        self.machine.turn_ramp_on()
 
 
     def manual_state_machine(self):
@@ -46,8 +48,8 @@ class MainScreen(Screen):
     def update(self, dt=None):
         if self.auto_start:
             self.machine.run_ramp_auto()
+            self.machine.set_stair_speed(self.ids.stair_speed_slider.value / 100)
 
-        self.machine.set_stair_speed(self.ids.stair_speed_slider.value/100)
         self.machine.set_ramp_speed(self.ids.ramp_speed_slider.value/100)
 
 
