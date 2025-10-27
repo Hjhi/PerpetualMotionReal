@@ -81,7 +81,6 @@ class PerpetualMachine:
                     self.ramp_state = self.RampState.HOME
                 if status[3] and self.dpiComputer.readDigitalIn(self.prox_sensor_top):
                     print("moving to top")
-                    self.set_ramp_speed(self.ramp_speed)
                     self.running = True
                     self.dpiStepper.moveToRelativePositionInRevolutions(0, -self.ramp_top_pos, False)
 
