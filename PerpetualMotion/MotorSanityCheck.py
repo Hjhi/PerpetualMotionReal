@@ -3,45 +3,45 @@ from time import sleep
 
 from PerpetualMachine import PerpetualMachine
 
-def main():
-    dpiStepper = DPiStepper()
-    dpiStepper.setMicrostepping(8)
-    dpiStepper.setSpeedInRevolutionsPerSecond(0, 3)
-    dpiStepper.setAccelerationInRevolutionsPerSecondPerSecond(0, 3)
-    dpiStepper.enableMotors(True)
-    dpiStepper.moveToHomeInSteps(0, 1, 1600 * 3, 999999999)
+def main(dpi: DPiStepper):
+    dpi.setMicrostepping(8)
+    dpi.setSpeedInRevolutionsPerSecond(0, 3)
+    dpi.setAccelerationInRevolutionsPerSecondPerSecond(0, 3)
+    dpi.enableMotors(True)
+    dpi.moveToHomeInSteps(0, 1, 1600 * 3, 999999999)
 
-    while not dpiStepper.getStepperStatus(0)[3]:
+    while not dpi.getStepperStatus(0)[3]:
         sleep(0.02)
 
-    dpiStepper.setSpeedInRevolutionsPerSecond(0, 3)
-    dpiStepper.setAccelerationInRevolutionsPerSecondPerSecond(0, 3)
+    dpi.setSpeedInRevolutionsPerSecond(0, 3)
+    dpi.setAccelerationInRevolutionsPerSecondPerSecond(0, 3)
     #  Exit:   [0]: True returned on success, else False
     #          [1]: True returned if motor is stopped
     #          [2]: True returned if motors are enabled
     #          [3]: True returned if the "Homing" switch indicates "At home"
     #
     for _ in range(3):
-        dpiStepper.moveToAbsolutePositionInRevolutions(0, -28, False)
+        dpi.moveToAbsolutePositionInRevolutions(0, -28, False)
 
-        while not dpiStepper.getStepperStatus(0)[1]:
-            print(dpiStepper.getCurrentPositionInRevolutions(0))
+        while not dpi.getStepperStatus(0)[1]:
+            print(dpi.getCurrentPositionInRevolutions(0))
             sleep(0.02)
 
-        dpiStepper.moveToHomeInRevolutions(0, 1, 3, 999999)
+        dpi.moveToHomeInRevolutions(0, 1, 3, 999999)
 
-        while not dpiStepper.getStepperStatus(0)[3]:
-            print(dpiStepper.getCurrentPositionInRevolutions(0))
+        while not dpi.getStepperStatus(0)[3]:
+            print(dpi.getCurrentPositionInRevolutions(0))
             sleep(0.02)
 
-        dpiStepper.setSpeedInRevolutionsPerSecond(0, 3)
-        dpiStepper.setAccelerationInRevolutionsPerSecondPerSecond(0, 3)
+        dpi.setSpeedInRevolutionsPerSecond(0, 3)
+        dpi.setAccelerationInRevolutionsPerSecondPerSecond(0, 3)
 
 
 
 
 if __name__ == "__main__":
+    dpiStepper = DPiStepper()
     try:
-        main()
+        main(dpiStepper)
     finally:
-        DPiStepper().enableMotors(False)
+        dpiStepper.enableMotors(False)
