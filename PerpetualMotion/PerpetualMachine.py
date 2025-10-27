@@ -64,15 +64,15 @@ class PerpetualMachine:
                     print("open gate")
                     self.open_gate()
                 if status[3] and not self.dpiComputer.readDigitalIn(self.prox_sensor_bottom):
-                    print("got to top")
+                    print("got to bottom")
                     self.ramp_state = self.RampState.EJECT
 
             case self.RampState.EJECT:
+                print(self.dpiStepper.getCurrentPositionInRevolutions(0))
                 if not status[3] and not self.dpiComputer.readDigitalIn(self.prox_sensor_top):
                     self.dpiStepper.enableMotors(False)
                     self.ramp_state = self.RampState.HOME
                 if status[3] and self.dpiComputer.readDigitalIn(self.prox_sensor_top):
-                    print(self.dpiStepper.getCurrentPositionInRevolutions(0))
                     self.dpiStepper.moveToRelativePositionInRevolutions(0, -self.ramp_top_pos, False)
 
     def halt(self):
