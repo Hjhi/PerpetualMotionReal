@@ -37,7 +37,7 @@ class PerpetualMachine:
     gate_state: GateState = GateState.CLOSED
 
     queue_auto_manual_change: bool = False
-    ramp_top_pos: float = 27 # revolutions
+    ramp_top_pos: float = 29 #revolutions
 
     def __init__(self, **kwargs):
         self.dpiComputer = DPiComputer()
@@ -66,6 +66,7 @@ class PerpetualMachine:
                 if status[3] and not self.dpiComputer.readDigitalIn(self.prox_sensor_bottom):
                     print("got to bottom")
                     self.ramp_state = self.RampState.EJECT
+                    self.dpiStepper.enableMotors(True)
 
             case self.RampState.EJECT:
                 print(self.dpiStepper.getCurrentPositionInRevolutions(0))
