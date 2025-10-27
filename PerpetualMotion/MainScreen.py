@@ -27,7 +27,7 @@ class MainScreen(Screen):
     slate_green: ColorProperty = ColorProperty("#6B7D7D")
 
     auto_toggle: bool = True
-    auto_start: bool = True
+    auto_start: bool = False
 
     def __init__(self, machine: PerpetualMachine, **kwargs):
         super(MainScreen, self).__init__(**kwargs)
