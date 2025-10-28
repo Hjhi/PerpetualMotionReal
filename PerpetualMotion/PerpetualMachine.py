@@ -37,7 +37,7 @@ class PerpetualMachine:
     stair_power: OnOffState = OnOffState.OFF
     gate_state: GateState = GateState.CLOSED
 
-    ramp_top_pos: float = 28#revolutions
+    ramp_top_pos: float = 28.1#revolutions
     running:bool = False
 
     homing_debounce:bool = False
@@ -56,13 +56,11 @@ class PerpetualMachine:
     home: bool = True
 
     def run_ramp_auto(self):
-        status = self.dpiStepper.getStepperStatus(0)
-        print(self.ramp_state)
-
         match self.ramp_state:
             case self.RampState.HOMING:
                 print("moving home")
-                self.dpiStepper.moveToAbsolutePositionInRevolutions(0, 0, False)
+                self.dpiStepper.moveToAbsolutePositionInRevolutions(1, 0, False)
+                self.close_gate()
                 self.ramp_state = self.RampState.HOME
 
             case self.RampState.HOME:
