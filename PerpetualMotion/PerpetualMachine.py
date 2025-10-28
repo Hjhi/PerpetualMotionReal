@@ -56,6 +56,7 @@ class PerpetualMachine:
     home: bool = True
 
     def run_ramp_auto(self):
+        print(self.dpiStepper.getCurrentPositionInRevolutions(0))
         match self.ramp_state:
             case self.RampState.HOMING:
                 print("moving home")
@@ -77,7 +78,6 @@ class PerpetualMachine:
 
             case self.RampState.EJECT:
 
-                print(self.dpiStepper.getCurrentPositionInRevolutions(0))
                 if not self.home and not self.dpiComputer.readDigitalIn(self.prox_sensor_top):
                     print("got to top")
                     self.ramp_state = self.RampState.HOMING
