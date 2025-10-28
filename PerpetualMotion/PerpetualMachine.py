@@ -60,13 +60,13 @@ class PerpetualMachine:
         match self.ramp_state:
             case self.RampState.HOMING:
                 print("moving home")
-                self.dpiStepper.moveToAbsolutePositionInRevolutions(1, 0, False)
+                self.dpiStepper.moveToAbsolutePositionInRevolutions(0, 0, False)
                 self.close_gate()
                 self.ramp_state = self.RampState.HOME
 
             case self.RampState.HOME:
                 if not self.home:
-                    if self.dpiStepper.getCurrentPositionInRevolutions(0)[1] < 1:
+                    if abs(self.dpiStepper.getCurrentPositionInRevolutions(0)[1]) < 1:
                         self.home = True
                 if self.home and self.dpiComputer.readDigitalIn(self.prox_sensor_bottom):
                     print("open gate")
@@ -83,7 +83,7 @@ class PerpetualMachine:
                     self.ramp_state = self.RampState.HOMING
                 if self.home and self.dpiComputer.readDigitalIn(self.prox_sensor_top):
                     print("moving to top")
-                    self.dpiStepper.moveToRelativePositionInRevolutions(0, -self.ramp_top_pos, False)
+                    self.dpiStepper.moveToAbsolutePositionInRevolutions(0, -self.ramp_top_pos, False)
                     self.home = False
 
     def halt(self):
