@@ -1,4 +1,4 @@
-from PerpetualMachine import PerpetualMachine
+from Machine import PerpetualMachine
 from time import sleep
 
 def main(m: PerpetualMachine):
