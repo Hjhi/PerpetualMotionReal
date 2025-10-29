@@ -9,7 +9,7 @@ from Machine import Machine
 #running into display issues enter this: export DISPLAY=:0
 
 os.environ['DISPLAY'] = ":0.0"
-os.environ["KIVY_WINDOW"] = "egl_rpi"
+
 import sys
 sys.path.insert(0, '.venv/src/pidev')
 from kivy.app import App
