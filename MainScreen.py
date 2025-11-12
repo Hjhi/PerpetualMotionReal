@@ -19,10 +19,15 @@ class MainScreen(Screen):
         print("startup done")
 
     def on_enter(self, *args):
+        print("entered main screen")
         Clock.schedule_interval(self.update, 0.05)
 
+    def on_leave(self, *args):
+        print("left main screen")
+        Clock.unschedule(self.update)
+
     def update(self, dt=None):
-        pass
+        print('updating main screen')
 
     def pressed(self):
         """
