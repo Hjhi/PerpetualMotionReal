@@ -1,17 +1,12 @@
 import os
 
-from dpeaDPi.DPiComputer import DPiComputer
-from dpeaDPi.DPiStepper import DPiStepper
-
 from MainScreen import MainScreen
 from Machine import Machine
 
-#running into display issues enter this: export DISPLAY=:0
-
+#running into display issues? enter this into terminal: $ export DISPLAY=:0
 os.environ['DISPLAY'] = ":0.0"
 
 import sys
-sys.path.insert(0, '.venv/src/pidev')
 from kivy.app import App
 from kivy.core.window import Window
 from kivy.lang import Builder
@@ -53,6 +48,7 @@ if __name__ == "__main__":
     Config.write()
     p = ProjectNameGUI()
     try:
+        p.machine.startup()
         p.run()
     finally:
         p.machine.halt()

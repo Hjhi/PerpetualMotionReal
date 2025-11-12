@@ -24,6 +24,14 @@ class MainScreen(Screen):
     def update(self, dt=None):
         pass
 
+    def pressed(self):
+        """
+        Example button touch event method
+        This method is called from main.kv
+        :return: None
+        """
+        print("Button pressed!")
+
     def admin_action(self):
         """
         Hidden admin button touch event. Transitions to passCodeScreen.

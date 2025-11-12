@@ -1,32 +1,30 @@
-from time import sleep
-from dpeaDPi.DPiComputer import DPiComputer
-from dpeaDPi.DPiStepper import DPiStepper
-
+# ------------------------------------------------------------------
+# Hardware import TEMPLATE - replace these commented examples with
+# the actual imports used by your platform / hardware.
+#
+# Examples:
+# - USB/serial-based controllers:
+#     import serial
+# - If you're using the DPi modules, uncomment or replace below:
+#     from dpeaDPi.DPiComputer import DPiComputer
+#     from dpeaDPi.DPiStepper import DPiStepper
+#
+# TODO: Replace the placeholders above with your project's actual
+# imports. Then, in Machine.__init__, initialize the appropriate
+# objects (for example self.dpiComputer and self.dpiStepper) so the rest of
+# this class can call into your hardware layer.
+# ------------------------------------------------------------------
 
 
 class Machine:
-    """
-     backend/hardware methods for the perpetual motion machine
-    """
     def __init__(self, **kwargs):
-        self.dpiComputer = DPiComputer()
-        self.dpiStepper = DPiStepper()
-
-        if not self.dpiStepper.initialize():
-            print("Failed to initialize the DPiStepper board")
-
-        self.dpiStepper.setMicrostepping(8)
-
-
+        #TODO: Initialize your hardware interfaces here
+        pass
 
     def halt(self):
-        """
-            create halting program here for when program ends
-        """
+        #TODO: Implement halt functionality
         pass
 
     def startup(self):
-        """
-            create a startup sequence here
-        """
+        #TODO: Implement startup functionality
         pass
