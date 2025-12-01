@@ -1,11 +1,3 @@
-Adafruit-Blinka==8.66.1
-adafruit-circuitpython-busdevice==5.2.13
-adafruit-circuitpython-connectionmanager==3.1.5
-adafruit-circuitpython-requests==4.1.13
-adafruit-circuitpython-typing==1.12.2
-adafruit-circuitpython-vl6180x==1.4.18
-Adafruit-PlatformDetect==3.83.2
-Adafruit-PureIO==1.1.11
 binho-host-adapter==0.1.6
 certifi==2025.8.3
 charset-normalizer==3.4.3
